@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+
+import 'game.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Align(
+            alignment: .centerLeft,
+            child: Text('birdle'),
+          ),
+        ),
+        body: const Center(
+          child: Tile('a', HitType.hit),
+        ),
+      ),
+    );
+  }
+}
+
+class Tile extends StatelessWidget {
+  const Tile(this.letter, this.hitType, {super.key});
+
+  final String letter;
+  final HitType hitType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        color: switch (hitType) {
+          HitType.hit => Colors.green,
+          HitType.partial => Colors.yellow,
+          HitType.miss => Colors.grey,
+          _ => Colors.white,
+        }
+      ),
+      child: Center(
+        child: Text(
+          letter.toLowerCase(),
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+    );
+  }
+}
